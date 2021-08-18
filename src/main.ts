@@ -10,6 +10,8 @@ import {
   Vector,
   Random,
   Label,
+  Input,
+  GameEvent,
 } from "excalibur";
 import { Resources } from "./resources";
 import { Planet, PlanetArgs } from "./planet";
@@ -19,11 +21,20 @@ class Game extends Engine {
     super({ width: 800, height: 600 });
   }
   initialize() {
+    // ------ UI
+    const planetsInfo = new Label({text: "info", pos: new Vector(100,10)});
+    planetsInfo.enableCapturePointer = true;
+    planetsInfo.on("pointerenter", e => {console.log("desperate")});
+    this.add(planetsInfo);
+
+    // ----- Planets
     const rand = new Random();
     const numberOfPlanets = rand.integer(1, 5);
 
+    planetsInfo.text = `This system has ${numberOfPlanets} planets`;
+
     // Random system =)
-    for (let i = 1; i < numberOfPlanets; i++) {
+    for (let i = 1; i < numberOfPlanets + 1; i++) {
       const radius = rand.integer(10, 100);
       const pArgs: PlanetArgs = {
         pos: new Vector(500, 100 * i),
@@ -39,9 +50,7 @@ class Game extends Engine {
         ]),
       };
 
-      const p = new Planet(pArgs);      
-      p.on("pointerenter", e => {console.log("this is a planet")});
-      p.on("pointerdown", e => {console.log("this is a planet")});
+      const p = new Planet(pArgs);
       this.add(p);
     }
 
@@ -51,5 +60,7 @@ class Game extends Engine {
 }
 
 export const game = new Game();
+
+//game.input.pointers.on("down", e => {console.log("yo")}); // ← works!
 
 game.initialize();
