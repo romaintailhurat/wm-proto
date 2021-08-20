@@ -1,7 +1,11 @@
+interface State {
+    currentPlanet: string;
+}
+
 export class StateManager {
     private static instance: StateManager;
 
-    private state: number = 0;
+    private state: State = {currentPlanet: null};
 
     private constructor() {}
 
@@ -10,14 +14,14 @@ export class StateManager {
             StateManager.instance = new StateManager();
         }
         return(StateManager.instance);
-    }
-
-    public inc() {
-        this.state = this.state + 1;
-    }
+    }    
     
     public getState() {
         return(this.state);
+    }
+
+    public setCurrentPlanet(p: string) {
+        this.state = {currentPlanet: p};
     }
 
 

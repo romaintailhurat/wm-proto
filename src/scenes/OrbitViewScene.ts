@@ -14,6 +14,6 @@ export class OrbitViewScene extends Scene {
 
   onActivate(oldScene: Scene, newScene: Scene) {
     const state = StateManager.getInstance().getState();
-    console.log(`→ ${this.key} - state : ${state}`);
+    console.log(`→ ${this.key} - Planet is : ${state.currentPlanet}`);
   }
 }

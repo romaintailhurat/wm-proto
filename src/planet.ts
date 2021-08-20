@@ -79,7 +79,7 @@ export class Planet extends Actor {
     });
 
     this.on("pointerup", () => {
-      StateManager.getInstance().inc();
+      StateManager.getInstance().setCurrentPlanet(this.name);
       this.game.goToScene(OrbitViewScene.getViewKey());
     });
   }
