@@ -1,4 +1,6 @@
 import { Actor, ActorArgs, GameEvent, Graphics, Random, Shape } from "excalibur";
+import { Game } from "./main";
+import { OrbitViewScene } from "./scenes/OrbitViewScene";
 
 const randomName = (): string => {
   const rand = new Random();
@@ -47,12 +49,14 @@ export interface PlanetArgs extends ActorArgs {
 export class Planet extends Actor {
   public radius: number;
   public name: string;
+  public game: Game;
 
-  constructor(opts: PlanetArgs) {
+  constructor(opts: PlanetArgs, game: Game) {
     super(opts);
     this.name = randomName();
     this.body.collider.shape = Shape.Circle(this.radius);
-    console.log(this.body);
+
+    this.game = game;
   }
 
   toString() {
@@ -74,8 +78,7 @@ export class Planet extends Actor {
     });
 
     this.on("pointerup", () => {
-      console.log("emitting GO_TO_ORBIT_VIEW");
-      this.emit("toorbitview", new ToOrbitViewEvent());
+      this.game.goToScene(OrbitViewScene.getViewKey());
     });
   }
 }

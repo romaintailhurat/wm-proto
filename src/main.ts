@@ -14,11 +14,11 @@ import {
   GameEvent,
 } from "excalibur";
 import { Resources } from "./resources";
-import { Planet, PlanetArgs } from "./planet";
+import { Planet, PlanetArgs, ToOrbitViewEvent } from "./planet";
 import { SystemViewScene } from "./scenes/SystemViewScene";
 import { OrbitViewScene } from "./scenes/OrbitViewScene";
 
-class Game extends Engine {
+export class Game extends Engine {
   constructor() {
     super({ width: 800, height: 600 });
   }
@@ -57,11 +57,9 @@ class Game extends Engine {
         ]),
       };
 
-      const p = new Planet(pArgs);
+      const p = new Planet(pArgs, this);
       systemView.add(p);
-    }
-
-    
+    }    
 
     const orbitView = new OrbitViewScene();
 
@@ -69,10 +67,13 @@ class Game extends Engine {
     this.addScene(orbitView.key, orbitView);
 
     // ----- Subscribing to events
-    this.on("toorbitview", (e) => {
-      console.log(e);
-      this.goToScene(orbitView.key);
+    this.on("toorbitview", (e) => { // this doesn't work
+      console.log("orbit view event", e);
+      console.log(e.target);
+      e.target.goToScene(orbitView.key);
     })
+
+    
 
     // ----- Starting
     const loader = new Loader([Resources.Sword]);
@@ -86,6 +87,6 @@ export const game = new Game();
 
 game.toggleDebug();
 
-//game.input.pointers.on("down", e => {console.log("yo")}); // ← works!
+//game.input.pointers.on("down", e => game.goToScene("orbitviewscene")); // this works
 
 game.initialize();
