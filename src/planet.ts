@@ -1,6 +1,7 @@
 import { Actor, ActorArgs, GameEvent, Graphics, Random, Shape } from "excalibur";
 import { Game } from "./main";
 import { OrbitViewScene } from "./scenes/OrbitViewScene";
+import { StateManager } from "./state/StateManager";
 
 const randomName = (): string => {
   const rand = new Random();
@@ -78,6 +79,7 @@ export class Planet extends Actor {
     });
 
     this.on("pointerup", () => {
+      StateManager.getInstance().inc();
       this.game.goToScene(OrbitViewScene.getViewKey());
     });
   }

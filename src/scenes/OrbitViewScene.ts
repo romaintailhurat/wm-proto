@@ -1,4 +1,5 @@
 import { Scene } from "excalibur";
+import { StateManager } from "../state/StateManager";
 
 export class OrbitViewScene extends Scene {
   // Used when adding the scene to the game
@@ -12,6 +13,7 @@ export class OrbitViewScene extends Scene {
   }
 
   onActivate(oldScene: Scene, newScene: Scene) {
-    console.log(`→ ${this.key}`);
+    const state = StateManager.getInstance().getState();
+    console.log(`→ ${this.key} - state : ${state}`);
   }
 }
