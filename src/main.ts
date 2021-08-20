@@ -61,6 +61,8 @@ class Game extends Engine {
 
 export const game = new Game();
 
+game.toggleDebug();
+
 //game.input.pointers.on("down", e => {console.log("yo")}); // ← works!
 
 game.initialize();
