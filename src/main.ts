@@ -25,6 +25,7 @@ import { Planet } from "./models/Planet";
 import { PlanetarySystem } from "./models/PlanetarySystem";
 import { ShipActor } from "./actors/ShipActor";
 import { Ship } from "./models/Ship";
+import { ColorPalette } from "./utils/colorPalette";
 
 export class Game extends Engine {
   constructor() {
@@ -34,7 +35,7 @@ export class Game extends Engine {
   initialize() {
     // ------ UI
     const planetsInfo = new Label({ text: "info", pos: new Vector(100, 10) });
-    planetsInfo.color = Color.fromHex("#81C7B8");
+    planetsInfo.color = ColorPalette.TextBlue;
     this.add(planetsInfo);
 
     // ----- Starting Ship
@@ -59,15 +60,6 @@ export class Game extends Engine {
           planet: planet,
           radius: rand.integer(10, 100),
           pos: new Vector(this.canvasWidth * 2 / 3, 150 * (index + 1)),
-          color: rand.pickOne([
-            Color.Orange,
-            Color.Gray,
-            Color.Red,
-            Color.Rose,
-            Color.Violet,
-            Color.Green,
-            Color.DarkGray,
-          ]),
         },
         this,
       );
@@ -105,7 +97,7 @@ export class Game extends Engine {
 
 export const game = new Game();
 
-// game.toggleDebug();
+game.toggleDebug();
 
 //game.input.pointers.on("down", e => game.goToScene("orbitviewscene")); // this works
 
