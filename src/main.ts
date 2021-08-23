@@ -1,17 +1,17 @@
 import {
   Actor,
+  ActorArgs,
   Color,
   DisplayMode,
   Engine,
-  Loader,
-  vec,
-  Graphics,
-  ActorArgs,
-  Vector,
-  Random,
-  Label,
-  Input,
   GameEvent,
+  Graphics,
+  Input,
+  Label,
+  Loader,
+  Random,
+  vec,
+  Vector,
 } from "excalibur";
 import { Resources } from "./resources";
 import {
@@ -33,8 +33,8 @@ export class Game extends Engine {
 
   initialize() {
     // ------ UI
-    const planetsInfo = new Label({ text: "info", pos: new Vector(100, 10), });
-    planetsInfo.color = Color.Orange;
+    const planetsInfo = new Label({ text: "info", pos: new Vector(100, 10) });
+    planetsInfo.color = Color.fromHex("#81C7B8");
     this.add(planetsInfo);
 
     // ----- Starting Ship
@@ -46,9 +46,8 @@ export class Game extends Engine {
     // ----- Planets
     const systemView = new SystemViewScene();
 
-    planetsInfo.text = `This system has ${
-      startingSystem.getPlanets().length
-    } planets`;
+    planetsInfo.text =
+      `This system has ${startingSystem.getPlanets().length} planets`;
 
     systemView.add(planetsInfo);
 
@@ -70,14 +69,17 @@ export class Game extends Engine {
             Color.DarkGray,
           ]),
         },
-        this
+        this,
       );
 
       systemView.add(planetActor);
     }
 
     // ----- Ship
-    const shipActor = new ShipActor({ pos: vec(this.canvasWidth * 1 / 3, 100), ship: ship });
+    const shipActor = new ShipActor({
+      pos: vec(this.canvasWidth * 1 / 3, 100),
+      ship: ship,
+    });
     systemView.add(shipActor);
 
     const orbitView = new OrbitViewScene();
