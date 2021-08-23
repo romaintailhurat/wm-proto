@@ -1,4 +1,5 @@
 import { Random } from "excalibur";
+import { PlanetTypes } from "../models/Planet";
 
 export const randomName = (): string => {
     const rand = new Random();
@@ -37,3 +38,13 @@ export const randomName = (): string => {
     }
     return name;
   };
+
+  export const randomType = () => {
+    const rand = new Random();
+    const pick = rand.integer(0,2);
+    if (pick == 0) {
+      return PlanetTypes.Big;
+    } else {
+      return PlanetTypes.Small;
+    }
+  }

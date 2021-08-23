@@ -14,10 +14,15 @@ import {
   GameEvent,
 } from "excalibur";
 import { Resources } from "./resources";
-import { PlanetActor, PlanetActorArgs, ToOrbitViewEvent } from "./actors/PlanetActor";
+import {
+  PlanetActor,
+  PlanetActorArgs,
+  ToOrbitViewEvent,
+} from "./actors/PlanetActor";
 import { SystemViewScene } from "./scenes/SystemViewScene";
 import { OrbitViewScene } from "./scenes/OrbitViewScene";
 import { Planet } from "./models/Planet";
+import { PlanetarySystem } from "./models/PlanetarySystem";
 
 export class Game extends Engine {
   constructor() {
@@ -25,23 +30,22 @@ export class Game extends Engine {
   }
 
   initialize() {
-    
-
     // ------ UI
     const planetsInfo = new Label({ text: "info", pos: new Vector(100, 10) });
     this.add(planetsInfo);
 
+    // ----- Starting System
+    const startingSystem = new PlanetarySystem();
+
     // ----- Planets
     const systemView = new SystemViewScene();
 
-    const rand = new Random();
-    const numberOfPlanets = rand.integer(1, 5);
-
-    planetsInfo.text = `This system has ${numberOfPlanets} planets`;
+    planetsInfo.text = `This system has ${startingSystem.getPlanets().length} planets`;
 
     systemView.add(planetsInfo);
 
     // Random system =)
+    /*
     for (let i = 1; i < numberOfPlanets + 1; i++) {
       const radius = rand.integer(10, 100);
       const pArgs: PlanetActorArgs = {
@@ -62,7 +66,31 @@ export class Game extends Engine {
 
       const p = new PlanetActor(pArgs, this);
       systemView.add(p);
-    }    
+    } */
+
+    const rand = new Random();
+
+    for (const [index, planet] of startingSystem.getPlanets().entries()) {
+      const planetActor = new PlanetActor(
+        {
+          planet: planet,
+          radius: rand.integer(10, 100),
+          pos: new Vector(500, 100 * (index + 1)),
+          color: rand.pickOne([
+            Color.Orange,
+            Color.Gray,
+            Color.Red,
+            Color.Rose,
+            Color.Violet,
+            Color.Green,
+            Color.DarkGray,
+          ]),
+        },
+        this
+      );
+
+      systemView.add(planetActor);
+    }
 
     const orbitView = new OrbitViewScene();
 
@@ -70,13 +98,12 @@ export class Game extends Engine {
     this.addScene(orbitView.key, orbitView);
 
     // ----- Subscribing to events
-    this.on("toorbitview", (e) => { // this doesn't work
+    this.on("toorbitview", (e) => {
+      // this doesn't work
       console.log("orbit view event", e);
       console.log(e.target);
       e.target.goToScene(orbitView.key);
-    })
-
-    
+    });
 
     // ----- Starting
     const loader = new Loader([Resources.Sword]);
