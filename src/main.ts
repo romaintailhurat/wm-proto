@@ -28,12 +28,13 @@ import { Ship } from "./models/Ship";
 
 export class Game extends Engine {
   constructor() {
-    super({ width: 800, height: 600 });
+    super({ displayMode: DisplayMode.Fill, backgroundColor: Color.Black });
   }
 
   initialize() {
     // ------ UI
-    const planetsInfo = new Label({ text: "info", pos: new Vector(100, 10) });
+    const planetsInfo = new Label({ text: "info", pos: new Vector(100, 10), });
+    planetsInfo.color = Color.Orange;
     this.add(planetsInfo);
 
     // ----- Starting Ship
@@ -58,7 +59,7 @@ export class Game extends Engine {
         {
           planet: planet,
           radius: rand.integer(10, 100),
-          pos: new Vector(500, 100 * (index + 1)),
+          pos: new Vector(this.canvasWidth * 2 / 3, 150 * (index + 1)),
           color: rand.pickOne([
             Color.Orange,
             Color.Gray,
@@ -76,7 +77,7 @@ export class Game extends Engine {
     }
 
     // ----- Ship
-    const shipActor = new ShipActor({ pos: vec(200, 100), ship: ship });
+    const shipActor = new ShipActor({ pos: vec(this.canvasWidth * 1 / 3, 100), ship: ship });
     systemView.add(shipActor);
 
     const orbitView = new OrbitViewScene();

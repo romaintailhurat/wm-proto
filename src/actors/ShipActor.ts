@@ -1,4 +1,4 @@
-import { Actor, ActorArgs, Graphics, vec } from "excalibur";
+import { Actor, ActorArgs, Color, Graphics, vec } from "excalibur";
 import { Ship } from "../models/Ship";
 
 export interface ShipActorArgs extends ActorArgs {
@@ -16,6 +16,7 @@ export class ShipActor extends Actor {
         {
           graphic: new Graphics.Polygon({
             points: [vec(10 * 5, 0), vec(0, 20 * 5), vec(20 * 5, 20 * 5)],
+            color: Color.LightGray
           }),
           pos: vec(50, 50),
         },
