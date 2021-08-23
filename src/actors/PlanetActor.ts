@@ -3,7 +3,6 @@ import { Game } from "../main";
 import { Planet } from "../models/Planet";
 import { OrbitViewScene } from "../scenes/OrbitViewScene";
 import { StateManager } from "../state/StateManager";
-import { randomName } from "../utils/name";
 
 
 export class ToOrbitViewEvent extends GameEvent<PlanetActor>{}
