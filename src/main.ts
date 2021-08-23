@@ -17,6 +17,7 @@ import { Resources } from "./resources";
 import { PlanetActor, PlanetActorArgs, ToOrbitViewEvent } from "./actors/PlanetActor";
 import { SystemViewScene } from "./scenes/SystemViewScene";
 import { OrbitViewScene } from "./scenes/OrbitViewScene";
+import { Planet } from "./models/Planet";
 
 export class Game extends Engine {
   constructor() {
@@ -44,6 +45,8 @@ export class Game extends Engine {
     for (let i = 1; i < numberOfPlanets + 1; i++) {
       const radius = rand.integer(10, 100);
       const pArgs: PlanetActorArgs = {
+        // FIXME
+        planet: new Planet(),
         pos: new Vector(500, 100 * i),
         radius: radius,
         color: rand.pickOne([

@@ -1,5 +1,6 @@
 import { Actor, ActorArgs, GameEvent, Graphics, Random, Shape } from "excalibur";
 import { Game } from "../main";
+import { Planet } from "../models/Planet";
 import { OrbitViewScene } from "../scenes/OrbitViewScene";
 import { StateManager } from "../state/StateManager";
 import { randomName } from "../utils/name";
@@ -8,17 +9,20 @@ import { randomName } from "../utils/name";
 export class ToOrbitViewEvent extends GameEvent<PlanetActor>{}
 
 export interface PlanetActorArgs extends ActorArgs {
+  planet: Planet;
   radius: number;
 }
 
 export class PlanetActor extends Actor {
+  public planet: Planet;
   public radius: number;
   public name: string;
   public game: Game;
 
   constructor(opts: PlanetActorArgs, game: Game) {
     super(opts);
-    this.name = randomName();
+    this.planet = this.planet;
+    this.name = this.planet.name;
     this.body.collider.shape = Shape.Circle(this.radius);
 
     this.game = game;
