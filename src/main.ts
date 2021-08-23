@@ -14,7 +14,7 @@ import {
   GameEvent,
 } from "excalibur";
 import { Resources } from "./resources";
-import { Planet, PlanetArgs, ToOrbitViewEvent } from "./planet";
+import { PlanetActor, PlanetActorArgs, ToOrbitViewEvent } from "./actors/PlanetActor";
 import { SystemViewScene } from "./scenes/SystemViewScene";
 import { OrbitViewScene } from "./scenes/OrbitViewScene";
 
@@ -43,7 +43,7 @@ export class Game extends Engine {
     // Random system =)
     for (let i = 1; i < numberOfPlanets + 1; i++) {
       const radius = rand.integer(10, 100);
-      const pArgs: PlanetArgs = {
+      const pArgs: PlanetActorArgs = {
         pos: new Vector(500, 100 * i),
         radius: radius,
         color: rand.pickOne([
@@ -57,7 +57,7 @@ export class Game extends Engine {
         ]),
       };
 
-      const p = new Planet(pArgs, this);
+      const p = new PlanetActor(pArgs, this);
       systemView.add(p);
     }    
 
