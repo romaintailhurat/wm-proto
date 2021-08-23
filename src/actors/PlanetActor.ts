@@ -47,13 +47,14 @@ export class PlanetActor extends Actor {
       color: this.color,
     });
 
-    const hexa = new Graphics.Rectangle({
-      height: 20,
-      width: 20,
+    const hexa = new Graphics.Circle({
+      radius: this.radius + 1,
+      color: ColorPalette.PlanetBlue,
+      strokeColor: Color.Rose,
     });
 
-    this.graphics.add("shape", planetShape);
     this.graphics.add("hexa", hexa);
+    this.graphics.add("shape", planetShape);
 
     this.graphics.hide("hexa");
     this.graphics.show("shape");
@@ -61,8 +62,8 @@ export class PlanetActor extends Actor {
     this.enableCapturePointer = true;
 
     this.on("pointerenter", () => {
-      console.log("enter");
       this.graphics.show("hexa");
+      this.game.eventDispatcher.emit("yo", new GameEvent());
     });
 
     this.on("pointerleave", () => {

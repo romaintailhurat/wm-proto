@@ -97,7 +97,11 @@ export class Game extends Engine {
 
 export const game = new Game();
 
-game.toggleDebug();
+//game.toggleDebug();
+
+game.on("yo", () => {
+  console.log("oooooh");
+});
 
 //game.input.pointers.on("down", e => game.goToScene("orbitviewscene")); // this works
 
