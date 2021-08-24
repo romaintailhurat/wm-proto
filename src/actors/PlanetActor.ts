@@ -8,7 +8,6 @@ import {
   Shape,
   vec,
 } from "excalibur";
-import { Game } from "../main";
 import { Planet } from "../models/Planet";
 import { OrbitViewScene } from "../scenes/OrbitViewScene";
 import { StateManager } from "../state/StateManager";
@@ -25,20 +24,21 @@ export class ToOrbitViewEvent extends GameEvent<any> {
 
 export interface PlanetActorArgs extends ActorArgs {
   planet: Planet;
-  radius: number;
+  scaleFactor: number;
 }
 
 export class PlanetActor extends Actor {
   public planet: Planet;
-  public radius: number;
   labelActor: Label;
+  scaleFactor: number;
 
   constructor(opts: PlanetActorArgs) {
     super(opts);
-    this.planet = this.planet;
+    this.planet = opts.planet;
+    this.scaleFactor = opts.scaleFactor;
 
     this.color = ColorPalette.PlanetBlue;
-    this.body.collider.shape = Shape.Circle(this.radius);
+    this.body.collider.shape = Shape.Circle(this.planet.radius);
   }
 
   toString() {
@@ -47,7 +47,7 @@ export class PlanetActor extends Actor {
 
   onInitialize() {
     const planetShape = new Graphics.Circle({
-      radius: this.radius,
+      radius: this.planet.radius * this.scaleFactor,
       color: this.color,
     });
 

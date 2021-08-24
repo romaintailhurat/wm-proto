@@ -58,7 +58,7 @@ export class Game extends Engine {
       const planetActor = new PlanetActor(
         {
           planet: planet,
-          radius: planet.radius,
+          scaleFactor: 1,
           pos: new Vector(this.canvasWidth * 2 / 3, 150 * (index + 1)),
         },
       );
@@ -98,7 +98,7 @@ export const game = new Game();
 
 //game.toggleDebug();
 
-game.on("to_scene", (event) => {
+game.on("to_scene", (event: GameEvent<PlanetActor>) => {
   console.log("Switching scene", event);
   game.goToScene(OrbitViewScene.getViewKey());
 });
