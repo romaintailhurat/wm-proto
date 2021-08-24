@@ -58,7 +58,7 @@ export class Game extends Engine {
       const planetActor = new PlanetActor(
         {
           planet: planet,
-          radius: rand.integer(10, 100),
+          radius: planet.radius,
           pos: new Vector(this.canvasWidth * 2 / 3, 150 * (index + 1)),
         },
         this,

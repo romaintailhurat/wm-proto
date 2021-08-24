@@ -4,6 +4,7 @@ import {
   Color,
   GameEvent,
   Graphics,
+  Label,
   Shape,
   vec,
 } from "excalibur";
@@ -23,13 +24,12 @@ export interface PlanetActorArgs extends ActorArgs {
 export class PlanetActor extends Actor {
   public planet: Planet;
   public radius: number;
-  public name: string;
   public game: Game;
+  labelActor: Label;
 
   constructor(opts: PlanetActorArgs, game: Game) {
     super(opts);
     this.planet = this.planet;
-    this.name = this.planet.name;
 
     this.color = ColorPalette.PlanetBlue;
     this.body.collider.shape = Shape.Circle(this.radius);
@@ -38,7 +38,7 @@ export class PlanetActor extends Actor {
   }
 
   toString() {
-    return `Planet ${this.name}`;
+    return `Planet ${this.planet.name} of type ${this.planet.type}`;
   }
 
   onInitialize() {
@@ -47,27 +47,26 @@ export class PlanetActor extends Actor {
       color: this.color,
     });
 
-    const hexa = new Graphics.Circle({
-      radius: this.radius + 1,
-      color: ColorPalette.PlanetBlue,
-      strokeColor: Color.Rose,
-    });
-
-    this.graphics.add("hexa", hexa);
-    this.graphics.add("shape", planetShape);
-
-    this.graphics.hide("hexa");
-    this.graphics.show("shape");
+    this.graphics.add(planetShape);
 
     this.enableCapturePointer = true;
 
     this.on("pointerenter", () => {
-      this.graphics.show("hexa");
+      const at = new Label({
+        text: this.toString(),
+        pos: vec(this.pos.x + 30, this.pos.y + 30),
+      });
+
+      at.color = Color.Orange;
+
+      this.labelActor = at;
+
+      this.game.currentScene.add(at);
       this.game.eventDispatcher.emit("yo", new GameEvent());
     });
 
     this.on("pointerleave", () => {
-      this.graphics.hide("hexa");
+      this.game.remove(this.labelActor);
     });
 
     this.on("pointerup", () => {

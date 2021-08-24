@@ -1,21 +1,23 @@
-import { randomName, randomType } from "../utils/planetRandomness";
+import {
+  randomName,
+  randomRadius,
+  randomType,
+} from "../utils/planetRandomness";
 
 export enum PlanetTypes {
-    Big,
-    Small,
-    Medium
+  Big,
+  Small,
+  Medium,
 }
 
 export class Planet {
-    public name: string;
-    public type: PlanetTypes;
+  public name: string;
+  public type: PlanetTypes;
+  public radius: number;
 
-    public static typeToColor() {
-
-    }
-    
-    constructor() {
-        this.name = randomName();
-        this.type = randomType();
-    }
+  constructor() {
+    this.name = randomName();
+    this.type = randomType();
+    this.radius = randomRadius(this.type);
+  }
 }
