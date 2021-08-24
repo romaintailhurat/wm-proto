@@ -1,4 +1,5 @@
 import { Scene } from "excalibur";
+import { PlanetActor } from "../actors/PlanetActor";
 import { StateManager } from "../state/StateManager";
 
 export class OrbitViewScene extends Scene {
@@ -9,11 +10,18 @@ export class OrbitViewScene extends Scene {
 
   constructor() {
     super();
-    this.key = "orbitviewscene";    
+    this.key = "orbitviewscene";
   }
 
   onActivate(oldScene: Scene, newScene: Scene) {
     const state = StateManager.getInstance().getState();
-    console.log(`→ ${this.key} - Planet is : ${state.currentPlanet}`);
+    const planet = state.currentPlanet;
+    console.log(`→ ${this.key} - Planet is : ${planet.name}`);
+    const planetActor = new PlanetActor({
+      planet: planet,
+      radius: planet.radius,
+    });
+
+    this.add(planetActor);
   }
 }

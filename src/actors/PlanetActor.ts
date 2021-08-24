@@ -14,7 +14,14 @@ import { OrbitViewScene } from "../scenes/OrbitViewScene";
 import { StateManager } from "../state/StateManager";
 import { ColorPalette } from "../utils/colorPalette";
 
-export class ToOrbitViewEvent extends GameEvent<PlanetActor> {}
+export class ToOrbitViewEvent extends GameEvent<any> {
+  viewName: string;
+
+  constructor() {
+    super();
+    this.viewName = OrbitViewScene.getViewKey();
+  }
+}
 
 export interface PlanetActorArgs extends ActorArgs {
   planet: Planet;
@@ -24,17 +31,14 @@ export interface PlanetActorArgs extends ActorArgs {
 export class PlanetActor extends Actor {
   public planet: Planet;
   public radius: number;
-  public game: Game;
   labelActor: Label;
 
-  constructor(opts: PlanetActorArgs, game: Game) {
+  constructor(opts: PlanetActorArgs) {
     super(opts);
     this.planet = this.planet;
 
     this.color = ColorPalette.PlanetBlue;
     this.body.collider.shape = Shape.Circle(this.radius);
-
-    this.game = game;
   }
 
   toString() {
@@ -51,6 +55,7 @@ export class PlanetActor extends Actor {
 
     this.enableCapturePointer = true;
 
+    // ----- Events for this actor
     this.on("pointerenter", () => {
       const at = new Label({
         text: this.toString(),
@@ -61,17 +66,17 @@ export class PlanetActor extends Actor {
 
       this.labelActor = at;
 
-      this.game.currentScene.add(at);
-      this.game.eventDispatcher.emit("yo", new GameEvent());
+      this.scene.engine.currentScene.add(at);
+      this.scene.engine.eventDispatcher.emit("yo", new GameEvent());
     });
 
     this.on("pointerleave", () => {
-      this.game.remove(this.labelActor);
+      this.scene.engine.remove(this.labelActor);
     });
 
     this.on("pointerup", () => {
-      StateManager.getInstance().setCurrentPlanet(this.name);
-      this.game.goToScene(OrbitViewScene.getViewKey());
+      StateManager.getInstance().setCurrentPlanet(this.planet);
+      this.scene.engine.emit("to_scene", new GameEvent<PlanetActor>());
     });
   }
 }
