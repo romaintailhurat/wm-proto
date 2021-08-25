@@ -2,7 +2,7 @@ import { Actor, ActorArgs, Color, Graphics, vec } from "excalibur";
 import { Ship } from "../models/Ship";
 
 export interface ShipActorArgs extends ActorArgs {
-    ship: Ship;
+  ship: Ship;
 }
 
 export class ShipActor extends Actor {
@@ -11,18 +11,34 @@ export class ShipActor extends Actor {
   }
 
   onInitialize() {
+    const scale = 3;
+
     const shipShape = new Graphics.GraphicsGroup({
       members: [
         {
           graphic: new Graphics.Polygon({
-            points: [vec(10 * 5, 0), vec(0, 20 * 5), vec(20 * 5, 20 * 5)],
-            color: Color.LightGray
+            points: [
+              vec(10 * scale, 0),
+              vec(0, 20 * scale),
+              vec(20 * scale, 20 * scale),
+            ],
+            color: Color.LightGray,
           }),
-          pos: vec(50, 50),
+          pos: vec(0, 0),
+        },
+        {
+          graphic: new Graphics.Rectangle({
+            height: 30 * scale,
+            width: 20 * scale,
+            color: Color.LightGray,
+          }),
+          pos: vec(0 * scale, 20 * scale),
         },
       ],
     });
-    
+
+    shipShape.rotation = 1;
+
     this.graphics.add(shipShape);
   }
 }
