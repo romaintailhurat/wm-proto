@@ -39,10 +39,17 @@ export class StateManager {
   }
 
   public setCurrentPlanet(planet: Planet) {
-    this.state.currentPlanet = planet;
+    this.state = {
+      ...this.state,
+      ...{currentPlanet: planet}
+    }
   }
 
   public setShip(ship: Ship) {
-    this.state.ship = ship;
+    //this.state.ship = ship;
+    this.state = {
+      ...this.state,
+      ...{ ship: ship}
+    };
   }
 }
