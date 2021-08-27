@@ -1,4 +1,5 @@
 import { Planet } from "../models/Planet";
+import { Ship } from "../models/Ship";
 
 interface UIState {}
 
@@ -6,14 +7,19 @@ interface WorldState {
   currentPlanet: Planet;
 }
 
-interface ShipState {}
+interface ShipState {
+  ship: Ship;
+}
 
 interface State extends WorldState, ShipState, UIState {}
 
 export class StateManager {
   private static instance: StateManager;
 
-  private state: State = { currentPlanet: null };
+  private state: State = {
+    currentPlanet: null,
+    ship: null,
+  };
 
   private constructor() {}
 
@@ -28,7 +34,15 @@ export class StateManager {
     return (this.state);
   }
 
-  public setCurrentPlanet(p: Planet) {
-    this.state = { currentPlanet: p };
+  public setState(state: State) {
+    this.state = state;
+  }
+
+  public setCurrentPlanet(planet: Planet) {
+    this.state.currentPlanet = planet;
+  }
+
+  public setShip(ship: Ship) {
+    this.state.ship = ship;
   }
 }

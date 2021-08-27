@@ -26,6 +26,7 @@ import { PlanetarySystem } from "./models/PlanetarySystem";
 import { ShipActor } from "./actors/ShipActor";
 import { Ship } from "./models/Ship";
 import { ColorPalette } from "./utils/colorPalette";
+import { StateManager } from "./state/StateManager";
 
 export class Game extends Engine {
   constructor() {
@@ -33,6 +34,9 @@ export class Game extends Engine {
   }
 
   initialize() {
+    // ----- State
+    const stateManager = StateManager.getInstance();
+
     // ------ UI
     const planetsInfo = new Label({ text: "info", pos: new Vector(100, 10) });
     planetsInfo.color = ColorPalette.TextBlue;
@@ -40,6 +44,7 @@ export class Game extends Engine {
 
     // ----- Starting Ship
     const ship = new Ship();
+    stateManager.setShip(ship);
 
     // ----- Starting System
     const startingSystem = new PlanetarySystem();
