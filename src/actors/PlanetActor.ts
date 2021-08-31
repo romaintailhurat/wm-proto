@@ -42,10 +42,12 @@ export class PlanetActor extends Actor {
   }
 
   toString() {
-    return `Planet ${this.planet.name} of type ${this.planet.type}`;
+    return `Planet ${this.planet.name} of type ${this.planet.type}.`;
   }
 
   onInitialize() {
+    console.log(this.planet.resources);
+
     const planetShape = new Graphics.Circle({
       radius: this.planet.radius * this.scaleFactor,
       color: this.color,

@@ -1,5 +1,7 @@
+import { Resource } from "./Resource";
+
 export class Ship {
-  public resources: [];
+  public resources: Resource[];
   constructor() {
     this.resources = [];
   }
