@@ -5,7 +5,7 @@ import {
 } from "../utils/planetRandomness";
 import { Resource } from "./Resource";
 
-export enum PlanetTypes {
+export enum PlanetType {
   Big,
   Small,
   Medium,
@@ -13,7 +13,7 @@ export enum PlanetTypes {
 
 export class Planet {
   public name: string;
-  public type: PlanetTypes;
+  public type: PlanetType;
   public radius: number;
   public resources: Resource[];
 

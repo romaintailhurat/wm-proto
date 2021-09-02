@@ -1,5 +1,5 @@
 import { Random } from "excalibur";
-import { PlanetTypes } from "../models/Planet";
+import { PlanetType } from "../models/Planet";
 
 export const randomName = (): string => {
   const rand = new Random();
@@ -43,20 +43,20 @@ export const randomType = () => {
   const rand = new Random();
   const pick = rand.integer(0, 2);
   if (pick == 0) {
-    return PlanetTypes.Big;
+    return PlanetType.Big;
   } else {
-    return PlanetTypes.Small;
+    return PlanetType.Small;
   }
 };
 
-export const randomRadius = (type: PlanetTypes) => {
+export const randomRadius = (type: PlanetType) => {
   const rand = new Random();
   switch (type) {
-    case PlanetTypes.Big:
+    case PlanetType.Big:
       return (rand.integer(70, 100));
-    case PlanetTypes.Medium:
+    case PlanetType.Medium:
       return (rand.integer(40, 69));
-    case PlanetTypes.Small:
+    case PlanetType.Small:
       return (rand.integer(20, 39));
   }
 };
