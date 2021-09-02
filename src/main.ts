@@ -27,6 +27,7 @@ import { ShipActor } from "./actors/ShipActor";
 import { Ship } from "./models/Ship";
 import { ColorPalette } from "./utils/colorPalette";
 import { StateManager } from "./state/StateManager";
+import { Probe } from "./models/Probe";
 
 export class Game extends Engine {
   constructor() {
@@ -44,6 +45,7 @@ export class Game extends Engine {
 
     // ----- Starting Ship
     const ship = new Ship();
+    ship.addProbe(new Probe());
     stateManager.setShip(ship);
 
     // ----- Starting System

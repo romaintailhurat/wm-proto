@@ -77,7 +77,12 @@ export class PlanetActor extends Actor {
     });
 
     this.on("pointerup", () => {
-      StateManager.getInstance().setCurrentPlanet(this.planet);
+      const sm = StateManager.getInstance();
+      sm.setCurrentPlanet(this.planet);
+      const ship = sm.getState().ship;
+      ship.orbitingPlanet = this.planet;
+      sm.setShip(ship);
+      console.log(sm.getState());
       this.scene.engine.emit("to_scene", new GameEvent<PlanetActor>());
     });
   }

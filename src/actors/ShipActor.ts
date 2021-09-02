@@ -1,5 +1,6 @@
 import { Actor, ActorArgs, Color, Graphics, vec } from "excalibur";
 import { Ship } from "../models/Ship";
+import { StateManager } from "../state/StateManager";
 
 export interface ShipActorArgs extends ActorArgs {
   ship: Ship;
@@ -40,5 +41,11 @@ export class ShipActor extends Actor {
     shipShape.rotation = 1;
 
     this.graphics.add(shipShape);
+
+    // Events ----
+    this.on("pointerup", (e) => {
+      // check context
+      StateManager.getInstance();
+    });
   }
 }
