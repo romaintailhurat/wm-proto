@@ -16,11 +16,13 @@ export class Planet {
   public type: PlanetType;
   public radius: number;
   public resources: Resource[];
+  public visited: boolean;
 
   constructor() {
     this.name = randomName();
     this.type = randomType();
     this.radius = randomRadius(this.type);
     this.resources = Resource.generateResources();
+    this.visited = false;
   }
 }
