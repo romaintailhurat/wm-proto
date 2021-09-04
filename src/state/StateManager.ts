@@ -1,7 +1,9 @@
 import { Planet } from "../models/Planet";
 import { Ship } from "../models/Ship";
 
-interface UIState {}
+interface UIState {
+  currentSceneKey: string;
+}
 
 interface WorldState {
   currentPlanet: Planet;
@@ -19,6 +21,7 @@ export class StateManager {
   private state: State = {
     currentPlanet: null,
     ship: null,
+    currentSceneKey: null,
   };
 
   private constructor() {}
@@ -50,6 +53,13 @@ export class StateManager {
     this.state = {
       ...this.state,
       ...{ ship: ship },
+    };
+  }
+
+  public setCurrentSceneKey(key: string) {
+    this.state = {
+      ...this.state,
+      ...{ currentSceneKey: key },
     };
   }
 }

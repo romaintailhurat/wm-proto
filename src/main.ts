@@ -97,6 +97,7 @@ export class Game extends Engine {
     const loader = new Loader([Resources.Sword]);
     this.start(loader).then(() => {
       this.goToScene(systemView.key);
+      StateManager.getInstance().setCurrentSceneKey(systemView.key);
     });
   }
 }
@@ -108,6 +109,7 @@ export const game = new Game();
 game.on("to_scene", (event: GameEvent<PlanetActor>) => {
   console.log("Switching scene", event);
   game.goToScene(OrbitViewScene.getViewKey());
+  StateManager.getInstance().setCurrentSceneKey(OrbitViewScene.getViewKey());
 });
 
 //game.input.pointers.on("down", e => game.goToScene("orbitviewscene")); // this works

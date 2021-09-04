@@ -42,7 +42,8 @@ export class PlanetActor extends Actor {
   }
 
   toString() {
-    return `Planet ${this.planet.name} of type ${this.planet.type}.`;
+    const visitedText = this.planet.visited ? "Visited" : "Not visited";
+    return `${this.planet.name} / type ${this.planet.type} / ${visitedText}`;
   }
 
   onInitialize() {
@@ -82,8 +83,8 @@ export class PlanetActor extends Actor {
       const ship = sm.getState().ship;
       ship.orbitingPlanet = this.planet;
       sm.setShip(ship);
-      console.log(sm.getState());
       this.scene.engine.emit("to_scene", new GameEvent<PlanetActor>());
+      console.log(sm.getState());
     });
   }
 }
