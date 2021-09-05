@@ -1,12 +1,8 @@
 import {
-  Actor,
-  ActorArgs,
   Color,
   DisplayMode,
   Engine,
   GameEvent,
-  Graphics,
-  Input,
   Label,
   Loader,
   Random,
@@ -14,14 +10,9 @@ import {
   Vector,
 } from "excalibur";
 import { Resources } from "./resources";
-import {
-  PlanetActor,
-  PlanetActorArgs,
-  ToOrbitViewEvent,
-} from "./actors/PlanetActor";
+import { PlanetActor } from "./actors/PlanetActor";
 import { SystemViewScene } from "./scenes/SystemViewScene";
 import { OrbitViewScene } from "./scenes/OrbitViewScene";
-import { Planet } from "./models/Planet";
 import { PlanetarySystem } from "./models/PlanetarySystem";
 import { ShipActor } from "./actors/ShipActor";
 import { Ship } from "./models/Ship";
@@ -58,8 +49,6 @@ export class Game extends Engine {
       `This system has ${startingSystem.getPlanets().length} planets`;
 
     systemView.add(planetsInfo);
-
-    const rand = new Random();
 
     for (const [index, planet] of startingSystem.getPlanets().entries()) {
       const planetActor = new PlanetActor(
@@ -111,7 +100,5 @@ game.on("to_scene", (event: GameEvent<PlanetActor>) => {
   game.goToScene(OrbitViewScene.getViewKey());
   StateManager.getInstance().setCurrentSceneKey(OrbitViewScene.getViewKey());
 });
-
-//game.input.pointers.on("down", e => game.goToScene("orbitviewscene")); // this works
 
 game.initialize();
